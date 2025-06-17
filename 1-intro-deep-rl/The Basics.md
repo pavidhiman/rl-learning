@@ -2,7 +2,7 @@
 - Main idea is that an AI agent will learn from the environment by interacting with it (through trial and error) and receiving rewards (negative or positive) as feedback
 
 #### The RL Framework 
-![[img1.png]]
+![Framework](img1.png)
 - Agent receives S<sub>o</sub> from the environment (ex, receives first frame of our game)
 - Based on S<sub>o</sub>, agent takes action A<sub>o</sub> (ex, agent moves to the right)
 - Environment goes to new state S<sub>1</sub> (ex, new frame)
