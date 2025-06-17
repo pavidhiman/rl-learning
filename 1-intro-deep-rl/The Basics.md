@@ -37,3 +37,10 @@
 
 **Rewards and the Discounting**
 - Reward is fundamental in RL since its the only feedback for the agent 
+	- Cumulative reward at each time step *t* can be written as:
+	![Cumulative Reward](img2.png)
+	which is equivalent to:
+	![Equation](img3.png)
+	- But we can't just add them like that 
+	- The rewards that come sooner (at beginning of the game) are more likely to happen since they're more predictable than the long-term future reward
+
