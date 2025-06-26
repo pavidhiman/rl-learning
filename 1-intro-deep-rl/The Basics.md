@@ -97,3 +97,73 @@
 	- Value of a state: expected discounted return the agent can get if it starts in that state and then acts according to the chosen policy 
 	- `v_π(s) = E_π [ Rₜ₊₁ + γRₜ₊₂ + γ²Rₜ₊₃ + … | Sₜ = s ]`
 - With value function - the policy will select the state with the biggest value to attain the goal
+
+#### The *Deep* in Reinforcement Learning
+- Deep RL = uses deep NN to solve RL problems 
+
+#### Hands On: Lunar Lander Agent Notes
+*Note: the code implementation is found in this folder*
+
+**Understanding Gymnasium**
+- A new version of the Gym library 
+- The lib provides two things:
+	- An interface that allows you to create RL environments 
+	- Collection of environments (gym-control, atari, box2D)
+- With gymnasium:
+	1. Create our env using `gymnasium.make()`
+	2. Reset the environment to initial state:` observation = env.reset()`
+	3. At each step:
+		1. Get an action using our model
+		2. Using` env.step(action)` - we perform this action in the env and obtain:
+			- `observation`: The new state (st+1)
+			- `reward`: The reward we get after executing the action
+			- `terminated`: Indicates if the episode terminated (agent reach the terminal state)
+			- `truncated`: indicates a time limit or if an agent goes out of bounds of the environment for instance
+			- `info`: A dictionary that provides additional information (depends on the environment)
+		- If the episode is terminated - reset the environment to its initial state with `observation = env.reset()`
+
+**LunarLander Environment**
+*Goal: train our agent to land correctly on the moon. The agent will learn to adapt its speed and position (horizontal, vertical and angular) to land correctly*
+
+`Observation Space Shape (8,)`: 
+- Observation is a vector of size 8 where each value contains different information:
+	- Horizontal pad coordinate (x)
+	- Vertical pad coordinate (y)
+	- Horizontal speed (x)
+	- Vertical speed (y)
+	- Angle
+	- Angular speed
+	- If the left leg contact point has touched the land (boolean)
+	- If the right leg contact point has touched the land (boolean)
+
+`Action Space`
+- *Set of all possible actions the agent can take* 
+- In this case, we have 4 actions available:
+	- Action 0: Do nothing
+	- Action 1: Fire left orientation engine
+	- Action 2: Fire the main engine
+	- Action 3: Fire right orientation engine
+
+`Reward Function`
+- *The function that'll give a reward at each timestep*
+- After every step, a reward is granted - the total reward of an episode is **sum of the rewards for all steps within that episode**
+- For each step, the reward:
+	- Is increased/decreased the closer/further the lander is to the landing pad
+	- Is increased/decreased the slower/faster the lander is moving
+	- Is decreased the more the lander is tilted (angle not horizontal)
+	- Is increased by 10 points for each leg that is in contact with the ground
+	- Is decreased by 0.03 points each frame a side engine is firing
+	- Is decreased by 0.3 points each frame the main engine is firing
+	- Episode will receive -100 or +100 for crashing or landing safely respectively 
+	- Episode is considered a solution if it scores at least 200 points 
+
+`Vectorized Environment`
+- *A method for stacking multiple independent environments into a single one of 16*
+
+**Creating the Model**
+- Using Stable Baselines3 (SB3) - reliable implementations of RL algorithms in PyTorch
+- Specifically, PPO (Proximal Policy Optimization) - one of the SOTA deep RL models and is a combination of value-based and policy-based RL learning methods 
+- SB3 is easy to set up
+	1. Create environment 
+	2. Define and instantiate the model you want to use: `model = PPO(MlpPolicy)`
+	3. Train the agent with `model.learn` and define number of training timesteps
