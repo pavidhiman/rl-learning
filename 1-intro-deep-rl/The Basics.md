@@ -44,3 +44,27 @@
 	- But we can't just add them like that 
 	- The rewards that come sooner (at beginning of the game) are more likely to happen since they're more predictable than the long-term future reward
 
+
+#### Type of Tasks
+- Task: an instance of an RL problem. There are two types = episodic and continuing 
+
+**Episodic Task**
+- Have a starting point and ending point (terminal state)
+- Ultimately creates episodes = list of States, Actions, Rewards and new States 
+- ex, super mario bros - an episode begins at the launch of a new level and ends when you're killing/reached the end of the level 
+
+**Continuing Tasks**
+- Tasks which continue forever (ie, no terminal state)
+- The agent must learn how to choose the best actions and simultaneously interact with the environment 
+
+#### Exploration/Exploitation Trade-Off
+- Exploration: exploring the environment by trying random actions in order to find more info about the environment 
+- Exploitation: exploiting known information to maximize the reward 
+- Note: goal of RL agent is to maximize the expected cumulative reward
+
+**Example**
+![Mouse image](img4.png)
+- Mouse can have an infinite amount of small cheese (+1 each) but at the top at the maze there's a huge sum of cheese (+1000)
+	- Exploitation - our agent will never reach the huge sum of cheese but will rather exploit the nearest source of rewards (even if they're smaller)
+	- Exploration - if agent does some more exploration, it can discover the bigger reward 
+- So, this is the trade off - balancing how much we explore the env and how much we exploit what we already know 
