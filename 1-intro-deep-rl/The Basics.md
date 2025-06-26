@@ -68,3 +68,52 @@
 	- Exploitation - our agent will never reach the huge sum of cheese but will rather exploit the nearest source of rewards (even if they're smaller)
 	- Exploration - if agent does some more exploration, it can discover the bigger reward 
 - So, this is the trade off - balancing how much we explore the env and how much we exploit what we already know 
+#### 2 Main Approaches for RL Problems
+***How do we build an RL agent that can select the actions that maximize its expected cumulative reward?***
+
+**The Policy π: the agent’s brain**
+- The Policy π is the agent's brain 
+- Its the function which tells us what action to take given the state we're in - ie, defines agent's behaviour at a given time 
+- Policy is the function we want to learn and our goal is to find the optimal policy π* - ie, the one which maximizes expected return 
+	- We find π* through training 
+- 2 approaches to train agent to find optimal policy π*:
+	1. Directly: teach the agent to learn which action to take given the current state (**Policy-Based Methods**)
+	2. Indirectly: teach the agent to learn which state is more valuable **(Value-Based Methods)** 
+
+**Policy-Based Methods**
+- Learn a policy function directly 
+- A few possible methods
+	- Function can define a mapping from each state to the best corresponding action
+	- Could define a probability distribution over the set of possible actions at that state 
+
+- 2 types of policies:
+	1. Deterministic: a policy at a given state will always return the same action  $$
+a \;=\; \pi(s)
+$$
+		- action = policy(state)
+		- State S<sub>o</sub> -> π( S<sub>o</sub>) ->  A<sub>o</sub> (action is moving to the right)
+	2. Stochastic: outputs a probability distribution over actions 
+$$
+\pi(a \mid s) \;=\; P[A \mid s]
+$$
+- Policy(actions | state): probability distribution over the set of actions given the state
+
+**Value-Based Methods**
+- Learn a value function that maps a state to the expected value of being at that state
+	- Value of a state: expected discounted return the agent can get if it starts in that state and then acts according to the chosen policy 
+
+$$
+v_{\pi}(s)
+    \;=\;
+    \mathbb{E}_{\pi}\!\Bigl[
+        R_{t+1}
+        \;+\;
+        \gamma\,R_{t+2}
+        \;+\;
+        \gamma^{2} R_{t+3}
+        \;+\;\dots
+        \,\bigm|\,
+        S_t = s
+    \Bigr]
+$$
+- With value function - the policy will select the state with the biggest value to attain the goal
