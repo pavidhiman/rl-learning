@@ -87,33 +87,15 @@
 	- Could define a probability distribution over the set of possible actions at that state 
 
 - 2 types of policies:
-	1. Deterministic: a policy at a given state will always return the same action  $$
-a \;=\; \pi(s)
-$$
+	1. Deterministic: a policy at a given state will always return the same action `a = π(s)`
 		- action = policy(state)
 		- State S<sub>o</sub> -> π( S<sub>o</sub>) ->  A<sub>o</sub> (action is moving to the right)
 	2. Stochastic: outputs a probability distribution over actions 
-$$
-\pi(a \mid s) \;=\; P[A \mid s]
-$$
-- Policy(actions | state): probability distribution over the set of actions given the state
+	`π(a | s) = P[A | s]`
+	- Policy(actions | state): probability distribution over the set of actions given the state
 
 **Value-Based Methods**
 - Learn a value function that maps a state to the expected value of being at that state
 	- Value of a state: expected discounted return the agent can get if it starts in that state and then acts according to the chosen policy 
-
-$$
-v_{\pi}(s)
-    \;=\;
-    \mathbb{E}_{\pi}\!\Bigl[
-        R_{t+1}
-        \;+\;
-        \gamma\,R_{t+2}
-        \;+\;
-        \gamma^{2} R_{t+3}
-        \;+\;\dots
-        \,\bigm|\,
-        S_t = s
-    \Bigr]
-$$
+	- `v_π(s) = E_π [ Rₜ₊₁ + γRₜ₊₂ + γ²Rₜ₊₃ + … | Sₜ = s ]`
 - With value function - the policy will select the state with the biggest value to attain the goal
