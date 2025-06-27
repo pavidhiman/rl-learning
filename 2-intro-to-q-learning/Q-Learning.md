@@ -56,3 +56,12 @@ Example:
 	- `S_t = s`: if agent starts at state s
 - Example: - The value of `V(S_{t+1})` = Immediate reward `R_{t+2}`+ Discounted value of the next state (gamma ∗ `V(S_{t+1})`)
 
+#### Monte Carlo vs. Temporal Difference Learning
+*RL agent learns by interacting with its env - given the experience and received reward, the agent should update its value function or policy.*
+- Monte Carlo and Temporal Difference are 2 strategies on how to train value/policy functions
+	- Monte Carlo uses an entire episode of experience before learning
+	- Temporal Difference uses only a step (St,At,Rt+1,St+1St​,At​,Rt+1​,St+1​ ) to learn
+
+**Monte Carlo: learning at the end of the episode**
+- Waits until end of episode, calculates the return `G_t` and uses it as a target for updating `V(S_t)`
+	- Requires complete episode of interaction before updating value function
