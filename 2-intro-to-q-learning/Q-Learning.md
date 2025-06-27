@@ -32,3 +32,27 @@
 **Bellman Eq'n**
 - Regardless of which value function we choose (state-value or action-value function), the returned value = expected return
 	- Problem is to calculate each value of state or state-action pair - must **sum** all the rewards an agent can get if it starts at that state (this is computationally expensive)
+#### Bellman Equation: Simplify our Value Estimation 
+*Simplifies our state value or state-action value calculation*
+
+- To calculate `V (S_t)` (ie, the value of a state) - we must calculate the return starting at that state and then follow policy for forever after 
+	-  To calculate `V (S_t)` - must sum the expected rewards 
+	-   To calculate `V (S_{t+1})` - must calculate return starting at that state `S_{t+1}`
+
+Example:
+![Maze](img1.png)
+![State1](img2.png)
+![State2](img3.png)
+
+- Repeating the computation of different states can be tedious - we can use the Bellman Equation 
+- Bellman Equation: a recursive equation where instead of starting for each state from the beginning and calculating the return, we consider the value of any state as:
+	- `(The immediate reward R_t+1) + (discounted value of the state which follows (γ∗V(S_{t+1​})**))`
+	- => `V(S_t) = R_t+1 + gamma * V(S_{t+1})`
+
+- The Bellman Equation: `V_π(s) = E_π[ R_{t+1} + γ · V_π(S_{t+1}) | S_t = s]`
+	- `V_π(s)`: value of state s
+	- `E_π`: expected value of immediate reward 
+	- `γ · V_π(S_{t+1}`: discounted value of next state 
+	- `S_t = s`: if agent starts at state s
+- Example: - The value of `V(S_{t+1})` = Immediate reward `R_{t+2}`+ Discounted value of the next state (gamma ∗ `V(S_{t+1})`)
+
