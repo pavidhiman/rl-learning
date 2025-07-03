@@ -65,3 +65,50 @@ Example:
 **Monte Carlo: learning at the end of the episode**
 - Waits until end of episode, calculates the return `G_t` and uses it as a target for updating `V(S_t)`
 	- Requires complete episode of interaction before updating value function
+$V(S_t) \leftarrow V(S_t) + \alpha \left[G_t - V(S_t)\right]$
+- `V(S_t)`: new value of state t 
+- `V(S_t)`: (second time and third time) former estimation of value of state t
+- `α`: learning rate 
+- `G_t`: return at timestep t
+
+Example: 
+![Board1](img4.png)
+1. Always start episode at **same starting point**
+2. Agent takes actions using policy 
+3. Obtain reward and next state
+4. Have a terminal state (ex, if cat eats mouse or if mouse moves >10 steps)
+5. At the end of the episode - gain the state, actions, rewards and next state tuples 
+	- Example: [State tile 3 bottom, Go Left, +1, State tile 2 bottom], [State tile 2 bottom, Go Left, +0, State tile 1 bottom]
+6. Agent will sum total rewards to see how well it did (`G_t`)
+7. Updates `V(S_t)` based on formula 
+8. Start new game with this new knowledge and repeat 
+- By running more episodes, the agent will learn to play better 
+
+**Temporal Difference Learning: learning at each step**
+*Waits only for one interaction step `S_{t+1}` to form a Temporal Difference (TD) target and update. Main idea is to update the `V(S_t)` at each step.*
+- Since we didn't get a whole episode, we don't have `G_t` (expected return) so instead we estimate it by adding `R{t_1}` and the discounted value of next state 
+	- Called **bootstrapping** since TD updates on existing new value state of *t* and not complete sample of Gt 
+
+Example:
+![Board2](img5.png)
+1. Initialize value function so it returns 0 value for each state 
+2. Learning rate (lr) is 0.1 and discount rate is 1 (no discount)
+	- Learning rate: α
+		- Controls how much the agent updates it estimate value after each step
+			- ie, how fast does the agent learn new info
+		- 0.1 = mouse updates its *guess* of how *good* a state is by 10% each time (slowly)
+	- Discount rate: γ
+		- How much does the agent care about future rewards
+		- 1 = mouse values future cheese as much as it values immediate cheese (ie, no discount)
+			- If 0.9 = would value later cheese a little less than immediate cheese
+			- If 0 = would only care about immediate cheese 
+3. Mouse begins to explore environment with random action - going to left 
+4. Gains rewards and eats cheese 
+
+$V(S_t) \leftarrow V(S_t) + \alpha \left[ R_{t+1} + \gamma V(S_{t+1}) - V(S_t) \right]$
+We can now update $V(S_0)$:
+New $V(S_0) = V(S_0) + \text{lr} \cdot \left[ R_1 + \gamma \cdot V(S_1) - V(S_0) \right]$
+New $V(S_0) = 0 + 0.1 \cdot \left[ 1 + 1 \cdot 0 - 0 \right]$
+New $V(S_0) = 0.1$
+
+- Continue to interact with this environment with our updated value function
